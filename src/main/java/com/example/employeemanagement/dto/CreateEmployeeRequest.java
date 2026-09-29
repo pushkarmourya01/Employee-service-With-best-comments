@@ -3,10 +3,21 @@ package com.example.employeemanagement.dto;
 import jakarta.validation.constraints.*;
 
 /**
+ * 📌 CREATE EMPLOYEE REQUEST DTO
+ * ============================================================================
  * Client se aane wala JSON is class mein bind hota hai — Entity nahi.
  * Validation yahan isliye: galat data database tak pahunche hi nahi.
+ *
+ * ❓ Kya @Valid lagane par hi Spring DTO mein check karne aayega?
+ * Jawab: 100% HAAN! DTO ek aam Java class (POJO) hai. Uske upar jo @NotBlank,
+ * @Size, @Email likha hai, woh sirf rules ki list hai. Controller ka @Valid
+ * un rules ko check karne ka switch hai!
+ * ============================================================================
  */
 public class CreateEmployeeRequest {
+
+    // 💡 Humne id aur createdAt ki field rakhi hi nahi!
+    // Client chah kar bhi id nahi bhej sakta, to prevent overriding & overlapping!
 
     @NotBlank(message = "First name is required")
     @Size(min = 2, max = 50, message = "First name must be 2 to 50 characters")
@@ -29,7 +40,9 @@ public class CreateEmployeeRequest {
     @Size(max = 50, message = "Position must be at most 50 characters")
     private String position;
 
+    // Double ek number hai, String nahi, isliye @NotBlank kaam nahi karta, @NotNull use hota hai
     @NotNull(message = "Salary is required")
+    // @Positive: Salary number hai, empty nahi laga sakte kyunki empty sirf length/size wali cheezon pe lagta hai
     @Positive(message = "Salary must be greater than 0")
     private Double salary;
 

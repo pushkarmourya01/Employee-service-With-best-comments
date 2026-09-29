@@ -2,6 +2,16 @@ package com.example.employeemanagement.dto;
 
 import jakarta.validation.constraints.*;
 
+/**
+ * 📌 UPDATE EMPLOYEE REQUEST DTO
+ * ============================================================================
+ * 1. Agar UpdateEmployeeResponse banate, toh woh EmployeeResponse ka 100%
+ *    ditto copy-paste hota. DRY Rule: "Agar kaam ek hi class se ho raha ho,
+ *    toh duplicate copy-paste class mat banao."
+ * 2. Catch: Isme 'id' NAHI hai! Kyunki ID URL path se aati hai (@PathVariable: PUT /api/employees/5).
+ * 3. Catch: Isme 'createdAt' NAHI hai! Kyunki creation date kabhi update nahi ho sakti.
+ * ============================================================================
+ */
 public class UpdateEmployeeRequest {
 
     @NotBlank(message = "First name is required")
@@ -17,6 +27,7 @@ public class UpdateEmployeeRequest {
     @Size(max = 100, message = "Email must be at most 100 characters")
     private String email;
 
+    // ^$| ka matlab phone optional hai (khali bhi chalega), par agar bhara toh format sahi hona chahiye
     @Size(max = 20, message = "Phone must be at most 20 characters")
     @Pattern(regexp = "^$|^[0-9+\\-\\s]{7,20}$", message = "Phone can contain digits, +, - and spaces")
     private String phone;

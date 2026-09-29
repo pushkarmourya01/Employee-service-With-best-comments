@@ -3,7 +3,16 @@ package com.example.employeemanagement.dto;
 import java.time.LocalDateTime;
 
 /**
- * Client ko yeh JSON milta hai. Table ke extra/internal fields yahan se control karte hain.
+ * 📌 EMPLOYEE RESPONSE DTO
+ * ============================================================================
+ * 1. Client se data aaya: CreateEmployeeRequest (DTO) ke roop mein.
+ * 2. Database (Repository) ne save kiya: Employee (Entity) ke roop mein.
+ * 3. Client ko wapas kya dikhana hai? Yeh Response DTO!
+ *
+ * ⚠️ Be Alert: Isme sirf wahi fields rakhein jo client ko publicly dikhana chahte hain.
+ * Internal database details ya sensitive data yahan se filter ho jata hai.
+ * Isme koi validation annotation nahi hoti kyunki yeh Output data hai.
+ * ============================================================================
  */
 public class EmployeeResponse {
 

@@ -30,11 +30,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponse> getEmployeeById(@PathVariable Long id) {
-        EmployeeResponse employee = employeeService.getEmployeeById(id);
-        if (employee != null) {
-            return ResponseEntity.ok(employee);
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
     @GetMapping
@@ -46,11 +42,7 @@ public class EmployeeController {
     public ResponseEntity<EmployeeResponse> updateEmployee(
             @PathVariable Long id,
             @Valid @RequestBody UpdateEmployeeRequest request) {
-        EmployeeResponse updated = employeeService.updateEmployee(id, request);
-        if (updated != null) {
-            return ResponseEntity.ok(updated);
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(employeeService.updateEmployee(id, request));
     }
 
     @DeleteMapping("/{id}")

@@ -7,12 +7,23 @@ import com.example.employeemanagement.entity.Employee;
 import org.springframework.stereotype.Component;
 
 /**
- * DTO <-> Entity conversion ek hi jagah.
- * Controller/Service ko JSON mapping ka kaam nahi karna chahiye scatter hoke.
+ * 📌 STEP 4: MAPPER (The Bridge / Translator)
+ * ============================================================================
+ * Design Pattern: Data Mapper Pattern
+ *
+ * ❓ DTO ke baad Mapper par aane ka convention kyun hai?
+ * Service ka asli kaam hai "Business Logic" (duplicate check, rules).
+ * Data ko ek object se doosre object mein copy karna (20 lines of getters/setters)
+ * Service mein daalne se code cluttered ho jata hai.
+ * Isliye Mapper class akele yeh sara translation handle karti hai.
+ *
+ * 💡 @Component: Taaki Spring iska Bean banaye aur hum ise Service mein inject kar sakein.
+ * ============================================================================
  */
 @Component
 public class EmployeeMapper {
 
+    // 1. DTO -> Entity (Naya employee DB mein save karne ke liye)
     public Employee toEntity(CreateEmployeeRequest request) {
         Employee employee = new Employee();
         employee.setFirstName(request.getFirstName());
@@ -24,6 +35,7 @@ public class EmployeeMapper {
         return employee;
     }
 
+    // 2. DTO -> Existing Entity (Purane employee ka data update karne ke liye)
     public void updateEntity(Employee existing, UpdateEmployeeRequest request) {
         existing.setFirstName(request.getFirstName());
         existing.setLastName(request.getLastName());
@@ -33,6 +45,7 @@ public class EmployeeMapper {
         existing.setSalary(request.getSalary());
     }
 
+    // 3. Entity -> Response DTO (DB se nikla employee client ko dikhane ke liye)
     public EmployeeResponse toResponse(Employee employee) {
         EmployeeResponse response = new EmployeeResponse();
         response.setId(employee.getId());
